@@ -34,7 +34,7 @@ const medicineSchema = new Schema(
     },
     category: {
       type: Schema.Types.ObjectId,
-      ref: "Catgory",
+      ref: "Category",
     },
     company: {
       type: Schema.Types.ObjectId,
@@ -50,7 +50,7 @@ const medicineSchema = new Schema(
     },
     discountPercentage: {
       type: Number,
-      required: true,
+      default: 0,
     },
   },
   {

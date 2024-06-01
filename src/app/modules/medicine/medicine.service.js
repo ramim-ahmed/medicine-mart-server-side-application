@@ -6,12 +6,25 @@ const createNewMedicine = async (data) => {
 };
 
 const getAllMedicines = async () => {
-  const result = await Medicine.find({}).sort({ createdAt: "desc" });
+  const result = await Medicine.find({})
+    .populate("category")
+    .populate("company")
+    .sort({ createdAt: "desc" });
+  return result;
+};
+
+const myMedicinesList = async (email) => {
+  const result = await Medicine.find({ "seller.email": email })
+    .populate("category")
+    .populate("company")
+    .sort({ createdAt: "desc" });
   return result;
 };
 
 const getSingleMedicine = async (id) => {
-  const result = await Medicine.findOne({ _id: id });
+  const result = await Medicine.findOne({ _id: id })
+    .populate("category")
+    .populate("company");
   return result;
 };
 
@@ -25,10 +38,11 @@ const deleteMedicine = async (id) => {
   return result;
 };
 
-module.exports = {
+module.exports.medicineService = {
   createNewMedicine,
   getAllMedicines,
   getSingleMedicine,
   updateMedicine,
   deleteMedicine,
+  myMedicinesList,
 };
