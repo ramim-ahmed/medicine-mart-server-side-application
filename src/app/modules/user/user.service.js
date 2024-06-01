@@ -17,8 +17,14 @@ const changeRole = async (email, role) => {
   const result = await User.updateOne({ email }, { role });
   return result;
 };
+
+const getUserRole = async (email) => {
+  const result = await User.findOne({ email });
+  return result;
+};
 module.exports.userService = {
   createNewUser,
   getAllUsers,
   changeRole,
+  getUserRole,
 };

@@ -3,6 +3,7 @@ const { userController } = require("./user.controller");
 const router = express.Router();
 
 router.get("/", userController.getAllUsers);
+router.get("/get-role", userController.getUserRole);
 router.post("/create-new", userController.createNewUser);
 router.patch("/change-role/:email", userController.changeRole);
 

@@ -55,8 +55,28 @@ const changeRole = async (req, res) => {
   }
 };
 
+const getUserRole = async (req, res) => {
+  try {
+    const { email } = req.params;
+    if (email !== req.decoded.email) {
+      return res.status(httpStatus.FORBIDDEN).json({
+        message: "Forbidden Access!!",
+      });
+    }
+    const result = await userService.getUserRole(email);
+    res.status(httpStatus.OK).json({ role: result?.role });
+  } catch (error) {
+    res.status(httpStatus.BAD_REQUEST).json({
+      success: false,
+      message: "Get User Is Failed!!",
+      error,
+    });
+  }
+};
+
 module.exports.userController = {
   createNewUser,
   getAllUsers,
   changeRole,
+  getUserRole,
 };
