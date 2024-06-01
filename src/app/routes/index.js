@@ -1,11 +1,16 @@
 const express = require("express");
 const { userRoutes } = require("../modules/user/user.route");
+const { categoryRoutes } = require("../modules/category/category.route");
 const router = express.Router();
 
 const moduleRoutes = [
   {
     path: "/users",
     route: userRoutes,
+  },
+  {
+    path: "/categories",
+    route: categoryRoutes,
   },
 ];
 
