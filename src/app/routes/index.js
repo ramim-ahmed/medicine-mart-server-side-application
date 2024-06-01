@@ -3,6 +3,7 @@ const { userRoutes } = require("../modules/user/user.route");
 const { categoryRoutes } = require("../modules/category/category.route");
 const { companyRoutes } = require("../modules/company/company.route");
 const { medicineRoutes } = require("../modules/medicine/medicine.route");
+const { tokenRoutes } = require("../modules/token/token.route");
 const router = express.Router();
 
 const moduleRoutes = [
@@ -21,6 +22,10 @@ const moduleRoutes = [
   {
     path: "/medicines",
     route: medicineRoutes,
+  },
+  {
+    path: "/token",
+    route: tokenRoutes,
   },
 ];
 
