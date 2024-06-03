@@ -22,6 +22,7 @@ const getUserRole = async (email) => {
   const result = await User.findOne({ email });
   return result;
 };
+
 module.exports.userService = {
   createNewUser,
   getAllUsers,

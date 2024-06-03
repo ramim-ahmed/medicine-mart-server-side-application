@@ -10,7 +10,19 @@ const getAllCategories = async () => {
   return result;
 };
 
+const updateCategory = async (id, data) => {
+  const result = await Category.updateOne({ _id: id }, data);
+  return result;
+};
+
+const deleteCategory = async (id) => {
+  const result = await Category.deleteOne({ _id: id });
+  return result;
+};
+
 module.exports.categoryService = {
   createNewCategory,
   getAllCategories,
+  updateCategory,
+  deleteCategory,
 };
