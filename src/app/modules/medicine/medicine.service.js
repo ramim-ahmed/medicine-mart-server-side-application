@@ -13,6 +13,14 @@ const getAllMedicines = async () => {
   return result;
 };
 
+const getCategoriesWiseMedicine = async (id) => {
+  const result = await Medicine.find({ category: id })
+    .populate("company")
+    .populate("category")
+    .sort({ createdAt: "desc" });
+  return result;
+};
+
 const myMedicinesList = async (email) => {
   const result = await Medicine.find({ "seller.email": email })
     .populate("category")
@@ -45,4 +53,5 @@ module.exports.medicineService = {
   updateMedicine,
   deleteMedicine,
   myMedicinesList,
+  getCategoriesWiseMedicine,
 };

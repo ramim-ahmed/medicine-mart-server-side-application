@@ -36,6 +36,24 @@ const getAllMedicines = async (req, res) => {
   }
 };
 
+const getCategoriesWiseMedicine = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const result = await medicineService.getCategoriesWiseMedicine(id);
+    res.status(httpStatus.OK).json({
+      success: true,
+      message: "Categories Wise Medicine Fetch Successfully!!",
+      data: result,
+    });
+  } catch (error) {
+    res.status(httpStatus.BAD_REQUEST).json({
+      success: false,
+      message: "Categories Wise Medicine Fetch Failed!!",
+      error,
+    });
+  }
+};
+
 const getSingleMedicine = async (req, res) => {
   try {
     const { id } = req.params;
@@ -116,4 +134,5 @@ module.exports.medicineController = {
   updateMedicine,
   deleteMedicine,
   myMedicinesList,
+  getCategoriesWiseMedicine,
 };

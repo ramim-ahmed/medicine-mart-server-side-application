@@ -7,6 +7,7 @@ const { tokenRoutes } = require("../modules/token/token.route");
 const {
   advertisementRoutes,
 } = require("../modules/advertisement/advertisement.route");
+const { cartRoutes } = require("../modules/cart/cart.route");
 const router = express.Router();
 
 const moduleRoutes = [
@@ -29,6 +30,10 @@ const moduleRoutes = [
   {
     path: "/advertisements",
     route: advertisementRoutes,
+  },
+  {
+    path: "/carts",
+    route: cartRoutes,
   },
   {
     path: "/token",

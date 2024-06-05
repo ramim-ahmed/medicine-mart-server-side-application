@@ -6,6 +6,7 @@ const router = express.Router();
 
 router.get("/", medicineController.getAllMedicines);
 router.get("/:id", medicineController.getSingleMedicine);
+router.get("/categories/:id", medicineController.getCategoriesWiseMedicine);
 router.get(
   "/my-medicine-lists/:email",
   verifyToken,

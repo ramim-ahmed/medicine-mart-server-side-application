@@ -54,8 +54,48 @@ const getMyAdvertisement = async (req, res) => {
   }
 };
 
+const changeAdvetisementStatus = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { status } = req.body;
+    const result = await advertisementService.changeAdvetisementStatus(
+      id,
+      status
+    );
+    res.status(httpStatus.OK).json({
+      success: true,
+      message: "Advertisements Status Change Successfully!!",
+      data: result,
+    });
+  } catch (error) {
+    res.status(httpStatus.BAD_REQUEST).json({
+      success: false,
+      message: "Advertisements Status Change Failed!!",
+      error,
+    });
+  }
+};
+
+const getAprovedAdvertise = async (req, res) => {
+  try {
+    const result = await advertisementService.getAprovedAdvertise();
+    res.status(httpStatus.OK).json({
+      success: true,
+      message: "Fetch Advertisements Successfully!!",
+      data: result,
+    });
+  } catch (error) {
+    res.status(httpStatus.BAD_REQUEST).json({
+      success: false,
+      message: "Fetch Advertisements Failed!!",
+      error,
+    });
+  }
+};
 module.exports.advertisementController = {
   createNew,
   getAllAdvertisement,
   getMyAdvertisement,
+  changeAdvetisementStatus,
+  getAprovedAdvertise,
 };
