@@ -13,6 +13,24 @@ const getAllMedicines = async () => {
   return result;
 };
 
+const getAllMedicineForHome = async () => {
+  const result = await Medicine.find({ discountPercentage: 0 })
+    .populate("category")
+    .populate("company")
+    .sort({ createdAt: "desc" })
+    .limit(8);
+  return result;
+};
+
+const getDiscountableProducts = async () => {
+  const result = await Medicine.find({ discountPercentage: { $gt: 0 } })
+    .populate("category")
+    .populate("company")
+    .sort({ createdAt: "desc" })
+    .limit(8);
+  return result;
+};
+
 const getCategoriesWiseMedicine = async (id) => {
   const result = await Medicine.find({ category: id })
     .populate("company")
@@ -54,4 +72,6 @@ module.exports.medicineService = {
   deleteMedicine,
   myMedicinesList,
   getCategoriesWiseMedicine,
+  getAllMedicineForHome,
+  getDiscountableProducts,
 };

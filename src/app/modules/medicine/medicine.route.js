@@ -5,6 +5,11 @@ const verifySeller = require("../../middlewares/verifySeller");
 const router = express.Router();
 
 router.get("/", medicineController.getAllMedicines);
+router.get("/medicines-for-home", medicineController.getAllMedicineForHome);
+router.get(
+  "/discountable-products",
+  medicineController.getDiscountableProducts
+);
 router.get("/:id", medicineController.getSingleMedicine);
 router.get("/categories/:id", medicineController.getCategoriesWiseMedicine);
 router.get(

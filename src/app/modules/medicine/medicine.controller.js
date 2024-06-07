@@ -36,6 +36,40 @@ const getAllMedicines = async (req, res) => {
   }
 };
 
+const getAllMedicineForHome = async (req, res) => {
+  try {
+    const result = await medicineService.getAllMedicineForHome();
+    res.status(httpStatus.OK).json({
+      success: true,
+      message: "Medicines Fetch Successfully!!",
+      data: result,
+    });
+  } catch (error) {
+    res.status(httpStatus.BAD_REQUEST).json({
+      success: false,
+      message: "Medicines Fetch Failed!!",
+      error,
+    });
+  }
+};
+
+const getDiscountableProducts = async (req, res) => {
+  try {
+    const result = await medicineService.getDiscountableProducts();
+    res.status(httpStatus.OK).json({
+      success: true,
+      message: "Fetch Discountable Products Successfully!!",
+      data: result,
+    });
+  } catch (error) {
+    res.status(httpStatus.BAD_REQUEST).json({
+      success: false,
+      message: "Fetch Discountable Products Failed!!",
+      error,
+    });
+  }
+};
+
 const getCategoriesWiseMedicine = async (req, res) => {
   try {
     const { id } = req.params;
@@ -135,4 +169,6 @@ module.exports.medicineController = {
   deleteMedicine,
   myMedicinesList,
   getCategoriesWiseMedicine,
+  getAllMedicineForHome,
+  getDiscountableProducts,
 };
