@@ -4,6 +4,7 @@ const paymentSchema = new Schema(
   {
     orderId: {
       type: Schema.Types.ObjectId,
+      required: true,
       ref: "Order",
     },
     user: {

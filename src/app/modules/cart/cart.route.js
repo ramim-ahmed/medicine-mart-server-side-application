@@ -5,22 +5,8 @@ const router = express.Router();
 
 router.get("/my-cart/:email", verifyToken, cartController.getMyCartsProducts);
 router.post("/create-new", verifyToken, cartController.addToCart);
-router.patch(
-  "/increment/:productId",
-  verifyToken,
-  cartController.incrementQuanity
-);
-router.patch(
-  "/decrement/:productId",
-  verifyToken,
-  cartController.decrementQuanity
-);
-
-router.delete("/clear-my-cart", cartController.clearCart);
-
-router.delete(
-  "/cart-item/:productId",
-  verifyToken,
-  cartController.deleteCartItem
-);
+router.patch("/increment", verifyToken, cartController.incrementQuanity);
+router.patch("/decrement", verifyToken, cartController.decrementQuanity);
+router.delete("/clear-cart", verifyToken, cartController.clearCart);
+router.delete("/:productId/:email", verifyToken, cartController.deleteCartItem);
 module.exports.cartRoutes = router;

@@ -1,7 +1,9 @@
 const express = require("express");
 const { orderController } = require("./order.controller");
+const verifyToken = require("../../middlewares/verifyToken");
 const router = express.Router();
 
-router.post("/create-new", orderController.createNewOrder);
+router.get("/:id", verifyToken, orderController.getOrder);
+router.post("/create-new", verifyToken, orderController.createNewOrder);
 
 module.exports.orderRoutes = router;

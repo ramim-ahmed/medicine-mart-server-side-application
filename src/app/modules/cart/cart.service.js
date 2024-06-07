@@ -1,10 +1,16 @@
 const Cart = require("./cart.model");
 
 const addToCart = async (data) => {
-  const { productId } = data;
-  const isExits = await Cart.findOne({ productId });
-  if (isExits) {
-    return;
+  const { email, productId } = data;
+  const userCarts = await Cart.find({ email });
+  if (userCarts.length > 0) {
+    const isExits = userCarts.find((item) => item.productId === productId);
+    if (isExits) {
+      return;
+    } else {
+      const result = await Cart.create(data);
+      return result;
+    }
   }
   const result = await Cart.create(data);
   return result;
@@ -17,31 +23,46 @@ const getMyCartsProducts = async (email) => {
   return result;
 };
 
-const incrementQuanity = async (productId) => {
-  const result = await Cart.updateOne({ productId }, { $inc: { quantity: 1 } });
+const incrementQuanity = async (data) => {
+  const { productId, email } = data;
+  const result = await Cart.updateOne(
+    { $and: [{ productId: productId }, { email: email }] },
+    { $inc: { quantity: 1 } }
+  );
   return result;
 };
-const decrementQuanity = async (productId) => {
-  const findProduct = await Cart.findOne({ productId });
-  const { quantity } = findProduct || {};
-  if (quantity > 1) {
+
+const decrementQuanity = async (data) => {
+  const { productId, email } = data;
+  const findProduct = await Cart.findOne({
+    $and: [{ productId: productId }, { email: email }],
+  });
+  if (findProduct.quantity > 1) {
     const result = await Cart.updateOne(
-      { productId },
+      { $and: [{ productId: productId }, { email: email }] },
       { $inc: { quantity: -1 } }
     );
     return result;
+  } else {
+    await Cart.deleteOne({
+      $and: [{ productId: productId }, { email: email }],
+    });
   }
-  await Cart.deleteOne({ productId });
 };
 
-const clearCart = async (ids) => {
-  const filter = { productId: { $in: ids } };
-  const result = await Cart.deleteMany(filter);
+const clearCart = async (data) => {
+  const { email, ids } = data;
+  const result = await Cart.deleteMany({
+    $and: [{ email: email }, { productId: { $in: ids } }],
+  });
   return result;
 };
 
-const deleteCartItem = async (productId) => {
-  const result = await Cart.deleteOne({ productId });
+const deleteCartItem = async (data) => {
+  const { productId, email } = data;
+  const result = await Cart.deleteOne({
+    $and: [{ productId: productId }, { email: email }],
+  });
   return result;
 };
 

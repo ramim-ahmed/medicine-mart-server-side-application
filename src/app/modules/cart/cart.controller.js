@@ -21,8 +21,8 @@ const addToCart = async (req, res) => {
 
 const incrementQuanity = async (req, res) => {
   try {
-    const { productId } = req.params;
-    const result = await cartService.incrementQuanity(productId);
+    const data = req.body;
+    const result = await cartService.incrementQuanity(data);
     res.status(httpStatus.OK).json({
       success: true,
       message: "Product Quantity Increment!!",
@@ -39,8 +39,8 @@ const incrementQuanity = async (req, res) => {
 
 const decrementQuanity = async (req, res) => {
   try {
-    const { productId } = req.params;
-    const result = await cartService.decrementQuanity(productId);
+    const data = req.body;
+    const result = await cartService.decrementQuanity(data);
     res.status(httpStatus.OK).json({
       success: true,
       message: "Product Quantity Decrement!!",
@@ -75,8 +75,16 @@ const getMyCartsProducts = async (req, res) => {
 
 const clearCart = async (req, res) => {
   try {
-    console.log("clear-cart-api", req.body);
-    const result = await cartService.clearCart();
+    // console.log("params", req.params);
+    // console.log("body", req.body?.data);
+    const ids = req.body?.data.map((item) => item.productId);
+    const { email } = req.body?.data[0] || {};
+    const data = {
+      email,
+      ids,
+    };
+    console.log(data);
+    const result = await cartService.clearCart(data);
     res.status(httpStatus.OK).json({
       success: true,
       message: "Clear My Cart!!",
@@ -93,8 +101,8 @@ const clearCart = async (req, res) => {
 
 const deleteCartItem = async (req, res) => {
   try {
-    const { productId } = req.params;
-    const result = await cartService.clearCart(productId);
+    const data = req.params;
+    const result = await cartService.deleteCartItem(data);
     res.status(httpStatus.OK).json({
       success: true,
       message: "Item Deleted From Cart!!",
