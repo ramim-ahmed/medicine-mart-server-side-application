@@ -3,7 +3,7 @@ const { cartController } = require("./cart.controller");
 const verifyToken = require("../../middlewares/verifyToken");
 const router = express.Router();
 
-router.get("/my-cart/:email", verifyToken, cartController.getMyCartsProducts);
+router.get("/my-cart/:email", cartController.getMyCartsProducts);
 router.post("/create-new", verifyToken, cartController.addToCart);
 router.patch("/increment", verifyToken, cartController.incrementQuanity);
 router.patch("/decrement", verifyToken, cartController.decrementQuanity);

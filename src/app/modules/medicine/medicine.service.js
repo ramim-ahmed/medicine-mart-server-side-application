@@ -5,12 +5,29 @@ const createNewMedicine = async (data) => {
   return result;
 };
 
-const getAllMedicines = async () => {
-  const result = await Medicine.find({})
+const getAllMedicines = async (searchTerm, sortBy, limit, skipIndex) => {
+  let query;
+  if (searchTerm) {
+    query = {
+      $or: [
+        { name: { $regex: searchTerm, $options: "i" } },
+        { genericName: { $regex: searchTerm, $options: "i" } },
+      ],
+    };
+  } else {
+    query = {};
+  }
+  const result = await Medicine.find(query)
     .populate("category")
     .populate("company")
-    .sort({ createdAt: "desc" });
-  return result;
+    .sort({ unitPrice: sortBy || "desc" })
+    .limit(limit)
+    .skip(skipIndex);
+  const total = await Medicine.estimatedDocumentCount();
+  return {
+    total,
+    data: result,
+  };
 };
 
 const getAllMedicineForHome = async () => {

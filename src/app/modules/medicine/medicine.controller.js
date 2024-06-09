@@ -21,11 +21,23 @@ const createNewMedicine = async (req, res) => {
 
 const getAllMedicines = async (req, res) => {
   try {
-    const result = await medicineService.getAllMedicines();
+    const { searchTerm, sortBy } = req.query;
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const skipIndex = (page - 1) * limit;
+    const result = await medicineService.getAllMedicines(
+      searchTerm,
+      sortBy,
+      limit,
+      skipIndex
+    );
     res.status(httpStatus.OK).json({
       success: true,
       message: "Medicines All Fetch Successfully!!",
-      data: result,
+      meta: {
+        total: result?.total,
+      },
+      data: result?.data,
     });
   } catch (error) {
     res.status(httpStatus.BAD_REQUEST).json({

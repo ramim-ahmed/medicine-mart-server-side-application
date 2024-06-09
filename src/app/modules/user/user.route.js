@@ -7,6 +7,7 @@ const router = express.Router();
 router.get("/", verifyToken, verifyAdmin, userController.getAllUsers);
 router.get("/get-role/:email", verifyToken, userController.getUserRole);
 router.post("/create-new", userController.createNewUser);
+router.patch("/update-user", userController.updateUser);
 router.patch(
   "/change-role/:email",
   verifyToken,

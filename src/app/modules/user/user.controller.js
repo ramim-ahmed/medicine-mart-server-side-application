@@ -68,15 +68,33 @@ const getUserRole = async (req, res) => {
   } catch (error) {
     res.status(httpStatus.BAD_REQUEST).json({
       success: false,
-      message: "Get User Is Failed!!",
+      message: "Get User Role Is Failed!!",
       error,
     });
   }
 };
 
+const updateUser = async (req, res) => {
+  try {
+    const data = req.body;
+    const result = await userService.updateUser(data);
+    res.status(httpStatus.OK).json({
+      success: true,
+      message: "User Updated Successfully!!",
+      data: result,
+    });
+  } catch (error) {
+    res.status(httpStatus.BAD_REQUEST).json({
+      success: false,
+      message: "User Updated Failed!!",
+      error,
+    });
+  }
+};
 module.exports.userController = {
   createNewUser,
   getAllUsers,
   changeRole,
   getUserRole,
+  updateUser,
 };

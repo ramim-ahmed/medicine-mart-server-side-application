@@ -23,9 +23,16 @@ const getUserRole = async (email) => {
   return result;
 };
 
+const updateUser = async (data) => {
+  const { email, userName, photo } = data;
+  const result = await User.updateOne({ email }, { name: userName, photo });
+  return result;
+};
+
 module.exports.userService = {
   createNewUser,
   getAllUsers,
   changeRole,
   getUserRole,
+  updateUser,
 };
