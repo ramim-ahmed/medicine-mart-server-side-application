@@ -56,7 +56,7 @@ Please follow the below instructions to run your machine.
    ```sh
    https://github.com/programming-hero-web-course1/b9a12-server-side-ramim-ahmed
    ```
-4. set env variable
+4. set env variable create [.env] file
    ```sh
    DATABASE_URL = your database_url
    PORT = 8000
