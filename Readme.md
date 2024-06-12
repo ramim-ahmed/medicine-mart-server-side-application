@@ -54,7 +54,7 @@ Please follow the below instructions to run your machine.
    ```
 3. clone this repository
    ```sh
-   https://github.com/programming-hero-web-course1/b9a12-server-side-ramim-ahmed
+   https://github.com/ramim-ahmed/medicine-mart-server-side-application
    ```
 4. set env variable create [.env] file
    ```sh
